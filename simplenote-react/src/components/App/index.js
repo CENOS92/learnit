@@ -12,14 +12,8 @@ class App extends Component {
     this.state = {
       notes: [
         {id: '_asdf3das',
-         title: '제목1',
-         contents: '내용1'},
-        {id: '_afef2asd',
-         title: '제목2',
-         contents: '내용2'},
-        {id: '_bewe1efv',
-         title: '제목3',
-         contents: '내용3'}
+         title: '심플노트에 오신것을 환영합니다!',
+         contents: '차근차근 만들면서 리액트를 익혀보세요! 👻\n\n헤더의 추가 버튼을 클릭하여 새로운 노트를 만드실 수 있습니다.'},
       ],
       activeId: '_asdf3das',
     };
@@ -59,7 +53,7 @@ class App extends Component {
     const notes = this.state.notes.filter((item) => item.id !== this.state.activeId);
     this.setState({
       notes,
-      activeId: notes.lenth !== 0 ? notes[0].id : null,  
+      activeId: notes.length !== 0 ? notes[0].id : null,  
     })
   }
 
