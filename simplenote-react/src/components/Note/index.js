@@ -7,10 +7,13 @@ class Note extends Component {
     this.state = {  };
   }
   render() {
+    const {title, contents} = this.props.note;
     return (
       <div className="note">
-        <input className="title" />
-        <textarea className="note-contents"></textarea>
+        <input className="title" value={title}/>
+        <textarea 
+          className="note-contents"
+          value={contents} />
       </div>
     );
   }

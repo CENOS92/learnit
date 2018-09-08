@@ -4,7 +4,7 @@ import ListItem from '../ListItem'
 
 class List extends Component {
   render() {
-    const {notes, activeId} = this.props;
+    const {notes, activeId, onListItemClick} = this.props;
     return (
       <div className="list">
         {notes.map((item) => {
@@ -15,7 +15,8 @@ class List extends Component {
               id={id}
               active={id === activeId}
               title={title}
-              contents={contents}/>
+              contents={contents}
+              onClick={() => onListItemClick(id)}/>
           );
         })}
       </div>

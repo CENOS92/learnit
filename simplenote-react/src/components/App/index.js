@@ -23,14 +23,23 @@ class App extends Component {
       activeId: '_asdf3das',
     };
   }
+  handleListItemClick = (id) => {
+    this.setState({
+      activeId: id
+    })
+  }
   render() {
     const {notes, activeId} = this.state;
+    const activeNote = notes.filter((item) => item.id === activeId)[0];
     return (
       <div className="app">
         <Header />
         <div className="container">
-          <List notes={notes} activeId={activeId}/>
-          <Note />
+          <List 
+            notes={notes} 
+            activeId={activeId}
+            onListItemClick={this.handleListItemClick}/>
+          {notes.length !== 0 && <Note note={activeNote}/>}
         </div>
       </div>
     );
