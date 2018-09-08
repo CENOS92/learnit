@@ -28,6 +28,16 @@ class App extends Component {
       activeId: id
     })
   }
+
+  hanleEditNote = (type, e) => {
+    const notes = [...this.state.notes];
+    const note = notes.find((item) => item.id === this.state.activeId)
+    note[type] = e.target.value;
+    this.setState({
+      notes,
+    })
+  }
+
   render() {
     const {notes, activeId} = this.state;
     const activeNote = notes.filter((item) => item.id === activeId)[0];
@@ -39,7 +49,10 @@ class App extends Component {
             notes={notes} 
             activeId={activeId}
             onListItemClick={this.handleListItemClick}/>
-          {notes.length !== 0 && <Note note={activeNote}/>}
+          {
+            notes.length !== 0 && 
+              <Note note={activeNote}
+                    onEditNote={this.hanleEditNote}/>}
         </div>
       </div>
     );
