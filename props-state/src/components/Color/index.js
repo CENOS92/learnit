@@ -26,7 +26,8 @@ class Color extends React.Component {
 	// 		selectedColor: type
 	// 	})
 	// }
-	// <button onClick={() => this.handleClick('RED')}>RED</button>
+	// <button onClick={this.handleClick('RED')}>RED</button> 
+	// JSX의 가독성이 좋아짐
 
 
 	// 바로 메소드 (함수) 작성시에는
