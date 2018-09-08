@@ -3,6 +3,7 @@ import './index.css'
 import Header from '../Header'
 import Note from '../Note'
 import List from '../List'
+import { generateId } from '../../utils';
 
 
 class App extends Component {
@@ -31,10 +32,34 @@ class App extends Component {
 
   hanleEditNote = (type, e) => {
     const notes = [...this.state.notes];
+    // Error occured with {} : notes.find((item) => {item.id === this.state.activeId})
     const note = notes.find((item) => item.id === this.state.activeId)
     note[type] = e.target.value;
     this.setState({
       notes,
+    })
+  }
+
+  handleAddNote = () => {
+    const id = generateId();
+    this.setState({
+      notes: [
+        ...this.state.notes,
+        {
+          id,
+          title: '제목',
+          contents: '내용',
+        }
+      ], 
+      activeId: id,
+    });
+  }
+
+  handleDeleteNote = () => {
+    const notes = this.state.notes.filter((item) => item.id !== this.state.activeId);
+    this.setState({
+      notes,
+      activeId: notes.lenth !== 0 ? notes[0].id : null,  
     })
   }
 
@@ -43,7 +68,9 @@ class App extends Component {
     const activeNote = notes.filter((item) => item.id === activeId)[0];
     return (
       <div className="app">
-        <Header />
+        <Header 
+          onAddNote={this.handleAddNote}
+          onDeleteNote={this.handleDeleteNote}/>
         <div className="container">
           <List 
             notes={notes} 
