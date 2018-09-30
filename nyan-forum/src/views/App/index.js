@@ -18,7 +18,21 @@ class App extends React.Component {
       <BrowserRouter>
         <Switch>
           {/* exact는 포함되었더라도 정확히 일치하는 것만! 가장 상위에는 exact를 사용해야 함 `exact={true}` */}
-          <Route path="/" exact component={Landing} />
+          <Route 
+            path="/" 
+            exact 
+            // component={Landing}
+            // props를 이용하고 싶을 때 render 사용
+            render={() => {
+              return <Landing />
+              // 예시
+              // if (isAuthenticated) {
+              //   return (<Landing name="BJ" />)
+              // } else {
+              //   return (<Landing />)
+              // }
+            }}
+          />
           <Route path="/board" component={Board} />
         </Switch>
       </BrowserRouter>
