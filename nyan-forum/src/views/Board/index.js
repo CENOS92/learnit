@@ -7,6 +7,7 @@ import {
 } from 'react-router-dom';
 
 import { db } from '../../firebase';
+import Header from '../../components/Header';
 import Navbar from '../../components/Navbar'
 import PostList from '../PostList';
 import PostCreate from '../PostCreate';
@@ -32,14 +33,17 @@ class Board extends React.Component {
     console.log('match.url', match.url);
     const { boards } = this.state;
     return (
-      <Contents>
-        <Navbar boards={boards} />
-          <Switch>
-            <Route path={`${match.url}/:boardId`} exact component={PostList} />
-            {/* <Route path="/board/:boardId" exact component={PostList} /> */}
-            <Route path="/board/:boardId/create" exact component={PostCreate} />
-          </Switch>
-      </Contents>
+      <div>
+        <Header />
+        <Contents>
+          <Navbar boards={boards} />
+            <Switch>
+              <Route path={`${match.url}/:boardId`} exact component={PostList} />
+              {/* <Route path="/board/:boardId" exact component={PostList} /> */}
+              <Route path="/board/:boardId/create" exact component={PostCreate} />
+            </Switch>
+        </Contents>
+      </div>
     );
   }
 }

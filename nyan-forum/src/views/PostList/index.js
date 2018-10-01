@@ -22,9 +22,8 @@ class PostList extends React.Component {
   }
 
   async componentDidUpdate (prevProps, prevState) {
-    
     if (prevProps.match.params.boardId !== this.props.match.params.boardId) {
-      this.setState({ posts: [] });
+      this.setState({ posts: [] }); // !! DidUpdate !! : Do not setState on componentWillUpdate!!! (infinite loop)
       const { boardId } = this.props.match.params;
       const boardSnapshot = await db.collection('boards').doc(boardId).get();
       const board = boardSnapshot.data();
