@@ -11,16 +11,30 @@ class PostList extends React.Component {
 
   async componentDidMount () {
     const boardId = this.props.match.params.boardId;
-    console.log(boardId);
     const boardSnapshot = await db.collection('boards').doc(boardId).get();
     const board = boardSnapshot.data();
-    console.log("board", board)
     const postPromises = board.posts.map(async (postId) => {
       const postSnapshot = await db.collection('posts').doc(postId).get();
       return postSnapshot.data()
     })
     const posts = await Promise.all(postPromises);
     this.setState({ posts });
+  }
+
+  async componentDidUpdate (prevProps, prevState) {
+    
+    if (prevProps.match.params.boardId !== this.props.match.params.boardId) {
+      this.setState({ posts: [] });
+      const { boardId } = this.props.match.params;
+      const boardSnapshot = await db.collection('boards').doc(boardId).get();
+      const board = boardSnapshot.data();
+      const postPromises = board.posts.map(async (postId) => {
+        const postSnapshot = await db.collection('posts').doc(postId).get();
+        return postSnapshot.data()
+      })
+      const posts = await Promise.all(postPromises);
+      this.setState({ posts });
+    }
   }
 
   render() {
