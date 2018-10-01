@@ -34,13 +34,11 @@ class Board extends React.Component {
     return (
       <Contents>
         <Navbar boards={boards} />
-        <div>
           <Switch>
             <Route path={`${match.url}/:boardId`} exact component={PostList} />
             {/* <Route path="/board/:boardId" exact component={PostList} /> */}
             <Route path="/board/:boardId/create" exact component={PostCreate} />
           </Switch>
-        </div>
       </Contents>
     );
   }

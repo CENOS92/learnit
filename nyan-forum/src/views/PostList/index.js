@@ -27,7 +27,7 @@ class PostList extends React.Component {
     const boardId = this.props.match.params.boardId;
     const { posts } = this.state;
     return (
-      <div>
+      <Wrapper>
         {boardId}
         { 
           posts.map((post) => {
@@ -36,7 +36,7 @@ class PostList extends React.Component {
             );
           })
         }
-      </div>
+      </Wrapper>
     );
   }
 }
