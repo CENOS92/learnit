@@ -13,18 +13,18 @@ class Header extends React.Component {
     const { isCreate } = pathname.includes('/create');
     
     return (
-      <div>
-        <div>
+      <Wrapper>
+        <Logo>
           <span>냥포럼</span>
-        </div>
-        <div>
+        </Logo>
+        <Action>
           {
             isCreate ? null : (
               <span>{ postId ? '댓글쓰기' : '글쓰기' }</span>
             )
           }
-        </div>
-      </div>
+        </Action>
+      </Wrapper>
     );
   }
 }
@@ -39,5 +39,19 @@ const Wrapper = styled.div`
   justify-content: space-between;
 `;
 
+const Logo = styled.div`
+  font-size: 2.4rem;
+  font-weight: 800;
+  color: #333;
+`;
+
+const Action = styled.div`
+  font-size: 1.6rem;
+  font-weight: bold;
+  a {
+    color: #333;
+    text-decoration: none;
+  }
+`;
 
 export default withRouter(Header); // withRouter 없으면 pathname을 가지고 올 수 없음
