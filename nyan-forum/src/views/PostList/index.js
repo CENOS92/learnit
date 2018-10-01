@@ -1,11 +1,38 @@
 import React from 'react';
+import { db } from '../../firebase';
+
+import PostItem from '../../components/PostItem';
 
 class PostList extends React.Component {
-  render() {
+  state = {
+    posts: [],
+  }
+
+  async componentDidMount () {
     const boardId = this.props.match.params.boardId;
-    console.log("boardId", boardId)
+    const boardSnapshot = await db.collection('boards').doc(boardId).get();
+    const board = boardSnapshot.data();
+    console.log(board)
+    const postPromises = board.posts.map(async (postId) => {
+      const postSnapshot = await db.collection('posts').doc(postId).get();
+      return postSnapshot.data()
+    })
+    const posts = await Promise.all(postPromises);
+    this.setState({ posts });
+  }
+
+  render() {
+    const { posts } = this.state;
     return (
-      <div>PostList</div>
+      <div>
+        {
+          posts.map((post) => {
+            return (
+              <PostItem key={post.id} post={post} />
+            );
+          })
+        }
+      </div>
     );
   }
 }

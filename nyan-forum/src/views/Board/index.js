@@ -6,7 +6,6 @@ import {
 } from 'react-router-dom';
 
 import { db } from '../../firebase';
-
 import PostList from '../PostList';
 import PostCreate from '../PostCreate';
 
@@ -17,11 +16,9 @@ class Board extends React.Component {
 
   async componentDidMount () {
     const boards = await db.collection('boards').get();
-    
     const boardsData = boards.docs.map((snapshot) => {
       return snapshot.data();
     });
-
     this.setState({
       boards: boardsData
     });
