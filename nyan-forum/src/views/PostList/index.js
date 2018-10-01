@@ -1,4 +1,5 @@
 import React from 'react';
+import styled from 'styled-components';
 import { db } from '../../firebase';
 
 import PostItem from '../../components/PostItem';
@@ -10,9 +11,10 @@ class PostList extends React.Component {
 
   async componentDidMount () {
     const boardId = this.props.match.params.boardId;
+    console.log(boardId);
     const boardSnapshot = await db.collection('boards').doc(boardId).get();
     const board = boardSnapshot.data();
-    console.log(board)
+    console.log("board", board)
     const postPromises = board.posts.map(async (postId) => {
       const postSnapshot = await db.collection('posts').doc(postId).get();
       return postSnapshot.data()
@@ -22,10 +24,12 @@ class PostList extends React.Component {
   }
 
   render() {
+    const boardId = this.props.match.params.boardId;
     const { posts } = this.state;
     return (
       <div>
-        {
+        {boardId}
+        { 
           posts.map((post) => {
             return (
               <PostItem key={post.id} post={post} />
@@ -36,5 +40,9 @@ class PostList extends React.Component {
     );
   }
 }
+
+const Wrapper = styled.div`
+  width: 100%;
+`;
 
 export default PostList;
