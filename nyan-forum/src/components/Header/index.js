@@ -20,7 +20,9 @@ class Header extends React.Component {
         <Action>
           {
             isCreate ? null : (
-              <span>{ postId ? '댓글쓰기' : '글쓰기' }</span>
+              <Link to={`${pathname}/create`}>
+                <span>{ postId ? '댓글쓰기' : '글쓰기' }</span>
+              </Link>
             )
           }
         </Action>
