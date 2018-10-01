@@ -1,4 +1,5 @@
 import React from 'react';
+import styled from 'styled-components';
 import {
   Switch,
   Route,
@@ -30,7 +31,7 @@ class Board extends React.Component {
     console.log('match.url', match.url);
     const { boards } = this.state;
     return (
-      <div>
+      <Contents>
         <ul>
           {
             boards.map((board) => {
@@ -50,9 +51,16 @@ class Board extends React.Component {
             <Route path="/board/:boardId/create" exact component={PostCreate} />
           </Switch>
         </div>
-      </div>
+      </Contents>
     );
   }
 }
+
+const Contents = styled.div`
+  max-width: 1004px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: row;
+`;
 
 export default Board;
