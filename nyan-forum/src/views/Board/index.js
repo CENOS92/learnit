@@ -7,6 +7,7 @@ import {
 } from 'react-router-dom';
 
 import { db } from '../../firebase';
+import Navbar from '../../components/Navbar'
 import PostList from '../PostList';
 import PostCreate from '../PostCreate';
 
@@ -32,18 +33,7 @@ class Board extends React.Component {
     const { boards } = this.state;
     return (
       <Contents>
-        <ul>
-          {
-            boards.map((board) => {
-              const {id, name } = board;
-              return (
-                <li>
-                  <Link to={`/board/${id}`} key={id}>{name}</Link>
-                </li>
-              )
-            })
-          }
-        </ul>
+        <Navbar boards={boards} />
         <div>
           <Switch>
             <Route path={`${match.url}/:boardId`} exact component={PostList} />
