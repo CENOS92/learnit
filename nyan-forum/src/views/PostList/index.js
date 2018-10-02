@@ -41,7 +41,6 @@ class PostList extends React.Component {
     const { posts } = this.state;
     return (
       <Wrapper>
-        {boardId}
         { 
           posts.map((post) => {
             return (
