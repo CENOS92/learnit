@@ -3,7 +3,7 @@ import {
   combineReducers,
   applyMiddleware
 } from 'redux';
-import thunk from 'react-redux';
+import thunk from 'redux-thunk';
 
 import { reducer as boardReducer } from '../Board/reducer';
 

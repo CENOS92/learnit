@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import styled from 'styled-components';
 import {
   Switch,
@@ -6,7 +7,6 @@ import {
   Link,
 } from 'react-router-dom';
 
-import { db } from '../../firebase';
 import Header from '../../components/Header';
 import Navbar from '../../components/Navbar'
 import PostList from '../PostList';
@@ -14,31 +14,18 @@ import PostCreate from '../PostCreate';
 import PostDetail from '../PostDetail';
 import CommentCreate from '../CommentCreate';
 
-class Board extends React.Component {
-  state = {
-    boards: [],
-  }
+import { fetchBoards } from './actions';
 
+class Board extends React.Component {
+  
   async componentDidMount () {
-    const boardsSnapshot = await db.collection('boards').get();
-    const boards = boardsSnapshot.docs.map((snapshot) => {
-      return snapshot.data();
-    });
-    
-    const activeBoardId = boards[0].id;
-    this.setState({
-      boards,
-    }, () => { // callback
-      this.props.history.push(`/board/${activeBoardId}`)
-    });
-    
-    
+    const { dispatch } = this.props;
+    dispatch(fetchBoards());
   }
 
   render() {
-    const { match } = this.props;
-    console.log('match.url', match.url);
-    const { boards } = this.state;
+    const { match, boards } = this.props;
+    console.log("Board Component에서 props로 받은 boards", boards);
     return (
       <div>
         <Header />
@@ -63,4 +50,11 @@ const Contents = styled.div`
   flex-direction: row;
 `;
 
-export default Board;
+const mapStateToProps = (state) => {
+  console.log("이거슨 mapStateToProps야. 이렇게 하면 Redux와 연결해서 props에서 boards를 받아올수있어. 이 state를 가지고 있어",state);
+  return {
+    boards: state.board.boards
+  }
+}
+
+export default connect(mapStateToProps)(Board);
