@@ -12,6 +12,7 @@ import Navbar from '../../components/Navbar'
 import PostList from '../PostList';
 import PostCreate from '../PostCreate';
 import PostDetail from '../PostDetail';
+import CommentCreate from '../CommentCreate';
 
 class Board extends React.Component {
   state = {
@@ -43,6 +44,7 @@ class Board extends React.Component {
               {/* <Route path="/board/:boardId" exact component={PostList} /> */}
               <Route path="/board/:boardId/create" exact component={PostCreate} />
               <Route path={`${match.url}/:boardId/:postId`} exact component={PostDetail} />
+              <Route path={`${match.url}/:boardId/:postId/create`} exact component={CommentCreate} />
             </Switch>
         </Contents>
       </div>
