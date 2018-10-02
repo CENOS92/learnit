@@ -6,16 +6,16 @@ class Comments extends React.Component {
     const { comments } = this.props;
     return (
       <Wrapper>
-        <div>
+        <Header>
           <span>댓글 {comments.length} 개</span>
-        </div>
+        </Header>
         {
           comments.map(({id, author, content}) => {
             return (
-              <div key ={id}>
-                {author}
+              <Comment key ={id}>
+                <strong>{author}</strong>
                 <span>{content}</span>
-              </div>
+              </Comment>
             );
           }) 
         }
@@ -30,6 +30,26 @@ const Wrapper = styled.div`
   border-radius: 3px;
   padding: 3rem;
   width: 100%;
+`;
+
+const Header = styled.div`
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: #333;
+  margin-bottom: 2rem;
+`;
+
+const Comment = styled.div`
+  font-size: 1.6rem;
+  color: #333;
+  margin-bottom: 1rem;
+  strong {
+    font-weight: 700;
+    margin-right: 1rem;
+  }
+  span {
+    font-weight: 400;
+  }
 `;
 
 
