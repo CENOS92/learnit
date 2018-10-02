@@ -14,16 +14,36 @@ class PostDetail extends React.Component {
 
   async componentDidMount () {
     const { postId } = this.props.match.params;
-    console.log(postId);
+    
+    const postSnapshot = await db.collection('posts').doc(postId).get();
+    const post = postSnapshot.data();
+
+    const commentsPromises = post.comments.map(async (commentId) => {
+      const commentSnapshot = await db.collection('comments').doc(commentId).get();
+      return commentSnapshot.data();
+    });
+
+    const comments = await Promise.all(commentsPromises)
+
+    this.setState({
+      post,
+      comments
+    })
+
   }
 
   render() {
+    const { post } = this.state
     return (
-      <div>
-        postDetail
-      </div>
+      <Wrapper>
+        <PostItem isDetail post={post}/>
+      </Wrapper>
     );
   }
 }
+
+const Wrapper = styled.div`
+  width: 100%;
+`;
 
 export default PostDetail;
