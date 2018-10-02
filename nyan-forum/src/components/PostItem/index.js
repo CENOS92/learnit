@@ -3,6 +3,13 @@ import styled from 'styled-components';
 import { withRouter } from 'react-router-dom'
 
 class PostItem extends Component {  
+  
+  handleClick = () => {
+    const { history, match, post, isDetail } = this.props;
+    if (!isDetail) {
+      history.push(`${match.url}/${post.id}`)
+    }
+  }
 
   render() {
     const { post, isDetail } = this.props;
@@ -10,7 +17,7 @@ class PostItem extends Component {
     const { id, author, title, content, comments } = post;
     console.log(post)
     return (
-      <Wrapper>
+      <Wrapper onClick={this.handleClick} isDetail={isDetail}>
         <Author>
           <span>{author}</span>
         </Author>
@@ -69,4 +76,4 @@ const CommentCount = styled.div`
   color: #999;
 `;
 
-export default PostItem;
+export default withRouter(PostItem);
