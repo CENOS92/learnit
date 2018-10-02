@@ -20,14 +20,19 @@ class Board extends React.Component {
   }
 
   async componentDidMount () {
-    const boards = await db.collection('boards').get();
-    const boardsData = boards.docs.map((snapshot) => {
+    const boardsSnapshot = await db.collection('boards').get();
+    const boards = boardsSnapshot.docs.map((snapshot) => {
       return snapshot.data();
     });
-    console.log(boardsData)
+    
+    const activeBoardId = boards[0].id;
     this.setState({
-      boards: boardsData
+      boards,
+    }, () => { // callback
+      this.props.history.push(`/board/${activeBoardId}`)
     });
+    
+    
   }
 
   render() {
@@ -41,8 +46,7 @@ class Board extends React.Component {
           <Navbar boards={boards} />
             <Switch>
               <Route path={`${match.url}/:boardId`} exact component={PostList} />
-              {/* <Route path="/board/:boardId" exact component={PostList} /> */}
-              <Route path="/board/:boardId/create" exact component={PostCreate} />
+              <Route path={`${match.url}/:boardId/create`} exact component={PostCreate} />
               <Route path={`${match.url}/:boardId/:postId`} exact component={PostDetail} />
               <Route path={`${match.url}/:boardId/:postId/create`} exact component={CommentCreate} />
             </Switch>
