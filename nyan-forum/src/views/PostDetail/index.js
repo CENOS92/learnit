@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { db } from '../../firebase';
 
 import PostItem from '../../components/PostItem';
-// import Comments from '../../components/Comments';
+import Comments from '../../components/Comments';
 
 class PostDetail extends React.Component {
   
@@ -24,7 +24,7 @@ class PostDetail extends React.Component {
     });
 
     const comments = await Promise.all(commentsPromises)
-
+    console.log("comments", comments);
     this.setState({
       post,
       comments
@@ -33,12 +33,16 @@ class PostDetail extends React.Component {
   }
 
   render() {
-    const { post } = this.state
-    return (
-      <Wrapper>
-        <PostItem isDetail post={post}/>
-      </Wrapper>
-    );
+    const { post, comments } = this.state
+    if (Object.keys(post).length !== 0) {
+      return (
+        <Wrapper>
+          <PostItem isDetail post={post}/>
+          <Comments comments={comments} />
+        </Wrapper>
+      );
+    }
+    return null;
   }
 }
 

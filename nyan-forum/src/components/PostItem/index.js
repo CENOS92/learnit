@@ -13,7 +13,6 @@ class PostItem extends Component {
 
   render() {
     const { post, isDetail } = this.props;
-    console.log('isDetail', isDetail);
     const { id, author, title, content, comments } = post;
     console.log(post)
     return (
