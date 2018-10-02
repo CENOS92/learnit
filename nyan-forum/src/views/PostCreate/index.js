@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { db } from '../../firebase'
+import Button from '../../components/Button';
 
 class PostCreate extends React.Component {
   state = {
@@ -43,7 +44,6 @@ class PostCreate extends React.Component {
           newPostRef.id
         ]
       });
-
       alert('성공적으로 등록했습니다')
       this.props.history.goBack();
     }
@@ -68,7 +68,7 @@ class PostCreate extends React.Component {
             <Label>내용</Label>
             <Textarea value={content} onChange={this.handleChange('content')} />
           </Content>
-          <button onClick={this.handleSubmit}>글 쓰기</button>
+          <Button onClick={this.handleSubmit}>글 쓰기</Button>
         </Form>
       </Wrapper>
     );
