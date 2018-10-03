@@ -14,7 +14,6 @@ class PostItem extends Component {
   render() {
     const { post, isDetail } = this.props;
     const { id, author, title, content, comments } = post;
-    console.log(post)
     return (
       <Wrapper onClick={this.handleClick} isDetail={isDetail}>
         <Author>

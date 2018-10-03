@@ -20,7 +20,14 @@ class Board extends React.Component {
   
   async componentDidMount () {
     const { dispatch } = this.props;
-    dispatch(fetchBoards());
+    await dispatch(fetchBoards()); // disaptch 후 activate first board
+    this.activateFitstBoard();
+  }
+
+  activateFitstBoard = () => {
+    const { boards, history } = this.props;
+    const firstBoardId = boards[0].id;
+    history.push(`/board/${firstBoardId}`);
   }
 
   render() {
@@ -53,7 +60,8 @@ const Contents = styled.div`
 const mapStateToProps = (state) => {
   console.log("이거슨 mapStateToProps야. 이렇게 하면 Redux와 연결해서 props에서 boards를 받아올수있어. 이 state를 가지고 있어",state);
   return {
-    boards: state.board.boards
+    boards: state.board.boards,
+    isLoading: state.board.isLoading,
   }
 }
 
