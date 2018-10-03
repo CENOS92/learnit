@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
-import { db } from '../../firebase';
 
 import PostItem from '../../components/PostItem';
 import { fetchPosts } from './actions';
