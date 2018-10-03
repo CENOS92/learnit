@@ -1,39 +1,22 @@
 import React from 'react';
+import { connect } from 'react-redux'
 import styled from 'styled-components';
-import { db } from '../../firebase';
 
 import PostItem from '../../components/PostItem';
 import Comments from '../../components/Comments';
 
+import { fetchPostDetail } from './actions';
+
 class PostDetail extends React.Component {
   
-  state = {
-    post: {},
-    comments: [],
-  }
-
   async componentDidMount () {
-    const { postId } = this.props.match.params;
-    
-    const postSnapshot = await db.collection('posts').doc(postId).get();
-    const post = postSnapshot.data();
-
-    const commentsPromises = post.comments.map(async (commentId) => {
-      const commentSnapshot = await db.collection('comments').doc(commentId).get();
-      return commentSnapshot.data();
-    });
-
-    const comments = await Promise.all(commentsPromises)
-    console.log("comments", comments);
-    this.setState({
-      post,
-      comments
-    })
-
+    const { dispatch, match } = this.props;
+    const { postId } = match.params;
+    dispatch(fetchPostDetail(postId));
   }
 
   render() {
-    const { post, comments } = this.state
+    const { post, comments } = this.props;
     if (Object.keys(post).length !== 0) {
       return (
         <Wrapper>
@@ -50,4 +33,10 @@ const Wrapper = styled.div`
   width: 100%;
 `;
 
-export default PostDetail;
+const mapStateToProps = (state) => {
+  return {
+    post: state.postDetail.post,
+    comments: state.postDetail.comments,
+  }
+}
+export default connect(mapStateToProps)(PostDetail);
